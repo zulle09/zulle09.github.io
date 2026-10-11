@@ -53,7 +53,8 @@ npm run preview  # serve the built dist/
 - The portrait `src/assets/riccardo.jpg` is pre-cropped to 4:5 (1200x1500) and rendered with `<Picture>` from `astro:assets` in `About.astro`.
 - Deploy: `.github/workflows/deploy.yml` (`withastro/action`) on push to `main`. The repo's Pages source must be set to "GitHub Actions". `astro.config.mjs` sets `site` and no `base` because this is a user-site repo.
 - The `gh` CLI on this machine is logged in as a different account (`theitalianelixirdev`) than the repo owner (`zulle09`); confirm before any `gh` write.
-- Not implemented: `og:image`, sitemap, contact form.
+- `public/og-image.png` (1200x630) is a static link-preview image referenced by the `og:image`/`twitter:image` tags in `Base.astro`. It was rendered once outside the repo (SVG with text converted to paths from the project's fonts, rasterised with the `sharp` that Astro bundles), so there is no generator script. Redo it by hand if the name, role or accent colour changes; social platforms cache previews, so a changed image may take a while to show.
+- Not implemented: sitemap, contact form.
 
 ## Gotchas
 

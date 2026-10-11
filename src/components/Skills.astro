@@ -1,0 +1,74 @@
+---
+import { skillGroups } from '../data/profile';
+---
+
+<section class="section" id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">
+        <span class="index" aria-hidden="true">05</span>
+        <span class="rule" aria-hidden="true"></span>
+        <span>Skills</span>
+      </p>
+      <h2 id="skills-title" class="section-title">Tools of the trade.</h2>
+    </div>
+
+    <div class="grid">
+      {
+        skillGroups.map((group, position) => (
+          <section class="group" aria-labelledby={`skills-group-${position}`} data-reveal style={`--reveal-delay: ${(position % 2) * 50}ms`}>
+            <h3 id={`skills-group-${position}`}>{group.title}</h3>
+            <ul class="chips">
+              {group.items.map((item) => (
+                <li class="chip">{item}</li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .group {
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  h3 {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .chip {
+    padding: 0.375rem 0.875rem;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .group {
+      padding: var(--space-8);
+    }
+  }
+</style>

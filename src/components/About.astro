@@ -1,0 +1,141 @@
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/riccardo.jpg';
+import { profile } from '../data/profile';
+---
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container grid">
+    <div class="copy">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">
+          <span class="index" aria-hidden="true">01</span>
+          <span class="rule" aria-hidden="true"></span>
+          <span>About</span>
+        </p>
+        <h2 id="about-title" class="section-title">Research mindset, industrial focus.</h2>
+      </div>
+      <div class="prose">
+        {
+          profile.summary.map((paragraph, index) => (
+            <p data-reveal style={`--reveal-delay: ${(index + 1) * 50}ms`}>
+              {paragraph}
+            </p>
+          ))
+        }
+      </div>
+      <dl class="facts" data-reveal style="--reveal-delay: 150ms">
+        {
+          profile.facts.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <figure class="portrait" data-reveal style="--reveal-delay: 100ms">
+      <Picture
+        src={portrait}
+        alt={profile.portraitAlt}
+        formats={['avif', 'webp']}
+        widths={[360, 540, 720]}
+        sizes="(min-width: 64rem) 22rem, (min-width: 48rem) 40vw, min(22rem, 100%)"
+        quality="mid"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .prose {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 40rem;
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+
+  .prose p:first-child {
+    color: var(--text);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+    max-width: 40rem;
+  }
+
+  .facts div {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  dd {
+    font-weight: 500;
+  }
+
+  .portrait {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 22rem);
+  }
+
+  .portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius-lg);
+    transform: translate(0.875rem, 0.875rem);
+  }
+
+  .portrait :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--space-16);
+    }
+
+    .portrait {
+      justify-self: end;
+      margin-right: 0.875rem;
+    }
+
+    .facts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

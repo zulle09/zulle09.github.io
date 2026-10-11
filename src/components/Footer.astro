@@ -1,0 +1,46 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <p>© {year} {profile.name}</p>
+    <p class="meta">Built with Astro</p>
+    <a class="top" href="#top">Back to top</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .top {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    transition: color var(--dur-fast) ease;
+  }
+
+  .top:hover {
+    color: var(--accent);
+  }
+</style>

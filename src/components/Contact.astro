@@ -1,0 +1,92 @@
+---
+import Icon from './Icon.astro';
+import { cv, profile, socials } from '../data/profile';
+
+const profileLinks = socials.filter((social) => social.icon !== 'mail');
+---
+
+<section class="section" id="contact" aria-labelledby="contact-title">
+  <div class="container inner">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">
+        <span class="index" aria-hidden="true">06</span>
+        <span class="rule" aria-hidden="true"></span>
+        <span>Contact</span>
+      </p>
+      <h2 id="contact-title" class="section-title">Let’s talk.</h2>
+    </div>
+
+    <p class="lede" data-reveal style="--reveal-delay: 50ms">
+      Interested in machine learning, anomaly detection, computer vision, LLM agents or industrial AI? The best way
+      to reach me is by email.
+    </p>
+
+    <a class="email" href={`mailto:${profile.email}`} data-reveal style="--reveal-delay: 100ms">
+      {profile.email}
+    </a>
+
+    <ul class="links" data-reveal style="--reveal-delay: 150ms">
+      {
+        profileLinks.map((social) => (
+          <li>
+            <a class="btn btn-secondary" href={social.href} target="_blank" rel="noopener noreferrer">
+              <Icon name={social.icon} size={18} />
+              {social.label}
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="btn btn-secondary" href={cv.href} download>
+          <Icon name="download" size={18} />
+          {cv.label}
+          <span class="visually-hidden">(PDF)</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .inner {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-6);
+  }
+
+  .section-head {
+    margin-bottom: 0;
+  }
+
+  .lede {
+    max-width: 36rem;
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+
+  .email {
+    font-size: clamp(1.25rem, 0.5rem + 3.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+    text-decoration-color: var(--accent-line);
+    transition: text-decoration-color var(--dur-fast) ease;
+  }
+
+  .email:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

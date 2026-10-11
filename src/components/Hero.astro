@@ -1,0 +1,110 @@
+---
+import Icon from './Icon.astro';
+import SignalLine from './SignalLine.astro';
+import { cv, profile, socials } from '../data/profile';
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container inner">
+    <p class="eyebrow" data-reveal>
+      <span class="rule" aria-hidden="true"></span>
+      <span>{profile.role}</span>
+    </p>
+    <h1 id="hero-title" data-reveal style="--reveal-delay: 50ms">{profile.name}</h1>
+    <p class="lede" data-reveal style="--reveal-delay: 100ms">{profile.tagline}</p>
+    <div class="actions" data-reveal style="--reveal-delay: 150ms">
+      <a class="btn btn-primary" href="#projects">
+        View projects
+        <Icon name="arrow-down" size={18} />
+      </a>
+      <a class="btn btn-secondary" href="#contact">Get in touch</a>
+      <a class="btn btn-secondary" href={cv.href} download>
+        <Icon name="download" size={18} />
+        {cv.label}
+        <span class="visually-hidden">(PDF)</span>
+      </a>
+    </div>
+    <ul class="social" aria-label="Social links" data-reveal style="--reveal-delay: 200ms">
+      {
+        socials.map((social) => (
+          <li>
+            <a
+              class="icon-btn"
+              href={social.href}
+              aria-label={social.label}
+              {...(social.icon === 'mail' ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+            >
+              <Icon name={social.icon} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <SignalLine />
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-top: clamp(3.5rem, 2rem + 7vw, 7.5rem);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 85% 75% at 25% 15%, #000 15%, transparent 75%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -14rem;
+    right: -12rem;
+    width: 40rem;
+    height: 40rem;
+    background: radial-gradient(closest-side, var(--accent-soft), transparent);
+    pointer-events: none;
+  }
+
+  .inner {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-6);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .lede {
+    max-width: 40rem;
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .social {
+    display: flex;
+    gap: var(--space-3);
+  }
+</style>

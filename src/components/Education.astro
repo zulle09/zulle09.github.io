@@ -1,0 +1,128 @@
+---
+import { education } from '../data/profile';
+---
+
+<section class="section" id="education" aria-labelledby="education-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">
+        <span class="index" aria-hidden="true">04</span>
+        <span class="rule" aria-hidden="true"></span>
+        <span>Education</span>
+      </p>
+      <h2 id="education-title" class="section-title">Academic background.</h2>
+    </div>
+
+    <ul class="grid">
+      {
+        education.map((entry, position) => (
+          <li data-reveal style={`--reveal-delay: ${position * 50}ms`}>
+            <article class="card">
+              <p class="dates">
+                <time datetime={entry.start.iso}>{entry.start.label}</time>
+                <span aria-hidden="true"> – </span>
+                <span class="visually-hidden"> to </span>
+                <time datetime={entry.end.iso}>{entry.end.label}</time>
+              </p>
+              <h3>{entry.degree}</h3>
+              <p class="field">{entry.field}</p>
+              <p class="school">
+                {entry.institution}, {entry.location}
+              </p>
+              <dl class="details">
+                <div>
+                  <dt>Thesis</dt>
+                  <dd>{entry.thesis}</dd>
+                </div>
+                <div>
+                  <dt>Relevant courses</dt>
+                  <dd>
+                    <ul class="chips">
+                      {entry.courses.map((course) => (
+                        <li class="chip">{course}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    height: 100%;
+    padding: var(--space-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+
+  .dates {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--accent);
+  }
+
+  h3 {
+    margin-top: var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .field {
+    font-weight: 500;
+  }
+
+  .school {
+    color: var(--text-muted);
+  }
+
+  .details {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .details div {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .card {
+      padding: var(--space-8);
+    }
+  }
+</style>

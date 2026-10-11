@@ -1,0 +1,166 @@
+---
+import { experience } from '../data/profile';
+---
+
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">
+        <span class="index" aria-hidden="true">02</span>
+        <span class="rule" aria-hidden="true"></span>
+        <span>Experience</span>
+      </p>
+      <h2 id="experience-title" class="section-title">From raw data to shipped products.</h2>
+    </div>
+
+    <ol class="timeline">
+      {
+        experience.map((job) => (
+          <li class="entry" data-reveal>
+            <div class="meta">
+              <p class="dates">
+                <time datetime={job.start.iso}>{job.start.label}</time>
+                <span aria-hidden="true"> – </span>
+                <span class="visually-hidden"> to </span>
+                {job.end ? <time datetime={job.end.iso}>{job.end.label}</time> : <span>Present</span>}
+              </p>
+              <p class="place">{job.location}</p>
+            </div>
+            <div class="body">
+              <h3>{job.role}</h3>
+              <p class="org">{job.organization}</p>
+              <ul class="points">
+                {job.highlights.map((highlight) => (
+                  <li>
+                    <strong>{highlight.label}.</strong> {highlight.text}
+                  </li>
+                ))}
+              </ul>
+              <ul class="chips" aria-label="Topics and tools">
+                {job.tags.map((tag) => (
+                  <li class="chip">{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    --meta-width: 11rem;
+    --column-gap: 3rem;
+    position: relative;
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .entry {
+    position: relative;
+    display: grid;
+    gap: var(--space-4);
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--border-strong);
+  }
+
+  .entry::before {
+    content: '';
+    position: absolute;
+    top: 0.45rem;
+    left: -0.3125rem;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+
+  .meta {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .dates {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--accent);
+  }
+
+  .place {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .org {
+    margin-top: var(--space-1);
+    color: var(--text-muted);
+  }
+
+  .points {
+    display: grid;
+    gap: var(--space-3);
+    margin-block: var(--space-6);
+    max-width: 44rem;
+  }
+
+  .points li {
+    position: relative;
+    padding-left: var(--space-6);
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+
+  .points li::before {
+    content: '';
+    position: absolute;
+    top: 0.75em;
+    left: 0;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--accent-line);
+  }
+
+  .points strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  @media (min-width: 48rem) {
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(var(--meta-width) + var(--column-gap) / 2);
+      width: 1px;
+      background: var(--border-strong);
+    }
+
+    .entry {
+      grid-template-columns: var(--meta-width) minmax(0, 1fr);
+      column-gap: var(--column-gap);
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .entry::before {
+      top: 0.55rem;
+      left: calc(var(--meta-width) + var(--column-gap) / 2 - 0.28125rem);
+    }
+
+    .meta {
+      align-content: start;
+      text-align: right;
+    }
+  }
+</style>

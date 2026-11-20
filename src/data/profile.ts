@@ -97,6 +97,11 @@ export const cv = {
   href: '/Riccardo_Zuliani_CV.pdf',
 } as const;
 
+export const presentation = {
+  label: 'View presentation',
+  href: '/Riccardo_Zuliani_Presentation.pdf',
+} as const;
+
 export const experience: ExperienceEntry[] = [
   {
     role: 'Freelance Software Engineer',
